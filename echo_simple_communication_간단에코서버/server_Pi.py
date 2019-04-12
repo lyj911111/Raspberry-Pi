@@ -30,7 +30,7 @@ while True:
     print("Connedted with" + addr[0] + ':' + str(addr[1]))
 
     # Read / send
-    data = conn, recv(1024)
+    data = conn.recv(1024)
     if not data:
         break
 
