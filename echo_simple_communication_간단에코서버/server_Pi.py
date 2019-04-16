@@ -1,8 +1,14 @@
 import socket
 import sys
+import argparse
 
-HOST = ''  # allocate dynamically of Host PC
-PORT = 7777
+# get the parsing port number from user. 유저로 부터 파싱을 받음.
+parser = argparse.ArgumentParser()
+parser.add_argument("Port", help="Input the port number", type=int)   # only input the port 포트번호만 넣도록
+print("Connedted Port number:", args.Port)
+
+HOST = ''  			# allocate dynamic Host IP address of PC
+PORT = args.Port	# allocate the port number from the user
 
 # open socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
