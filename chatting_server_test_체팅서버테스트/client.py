@@ -1,7 +1,7 @@
 import socket
 from threading import Thread
 
-HOST = '192.168.109.226'	# IP address that I want to access
+HOST = '192.168.110.187'	# IP address that I want to access
 PORT = 9009					# Port num
 
 
