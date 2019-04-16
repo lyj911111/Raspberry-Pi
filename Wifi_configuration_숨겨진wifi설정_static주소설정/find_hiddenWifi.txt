@@ -1,0 +1,40 @@
+참고 링크: https://m.blog.naver.com/PostView.nhn?blogId=getalone&logNo=220407139637&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+
+1. 터미널에서 명령어 입력.
+	$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+2.
+모두 지우고 다음과 같이 작성
+(비밀번호가 있는 경우)
+=>
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=US
+network={
+ssid="ace"			// 숨긴 Wifi 이름
+scan_ssid=1
+mode=0
+proto=WPA2
+pairwise=TKIP
+group=TKIP
+key_mgmt=WPA-PSK
+psk="Vace@2016"		// 숨긴 wifi 비밀번호
+}
+
+(비밀번호가 없는 경우)
+=>
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=US
+network={
+ssid="Vace"			// 숨긴 wifi 이름
+scan_ssid=1
+mode=0
+key_mgmt=NONE
+}
+
+3.	터미널에서 명령어 입력. (재부팅)
+	$ sudo reboot
+

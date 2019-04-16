@@ -1,0 +1,19 @@
+참고링크 : https://makeit402.blogspot.com/2017/07/static-ip-raspberry.html?m=1
+
+1. 터미널 입력
+	$ sudo nano /etc/dhcpcd.conf
+	
+2. 파일의 맨 아래로 이동 후 작성.
+=>
+
+interface wlan0							// 유선의 경우: eth0 으로 작성.
+static ip_address=192.168.110.186
+static routers=192.168.110.1
+static domain_name_servers=192.168.105.11
+static netmask=255.255.255.0
+
+3. 터미널 입력(네트워크 재부팅)
+	$ sudo /etc/init.d/networking restart
+	
+4. 터미널 입력(Pi 재부팅)
+	$ sudo reboot
