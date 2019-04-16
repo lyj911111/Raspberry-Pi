@@ -5,9 +5,8 @@ import argparse
 # get the parsing port number from the user.
 parser = argparse.ArgumentParser()
 parser.add_argument("Port", help="Input the port number", type=int)   # input the port
-print("Connedted Port number:", args.Port)
-
 args = parser.parse_args()
+print("Connedted Port number:", args.Port)
 
 HOST = ''  			# allocate dynamic Host IP address of PC
 PORT = args.Port	# allocate the port number from the user
