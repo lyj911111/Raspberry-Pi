@@ -24,15 +24,15 @@ def runChat():
         t.start()
 
         # for test
-        cnt = 0
+        sequence = 0
         msg = input()           # create PLC name by user
         PLCname = msg
         sock.send(msg.encode()) # 1st msg is information of PLC name
 
         while True:
-            cnt += 1
+            sequence += 1
             # msg = input()
-            msg = PLCname + ' protocol ' + str(cnt)     # send the protocol information to server continuously
+            msg = PLCname + ', Code ,' + str(sequence) + ', signal , def1 , def2 , def3 '     # send the protocol information to server continuously
             time.sleep(1)
             if msg == '/quit':
                 sock.send(msg.encode())

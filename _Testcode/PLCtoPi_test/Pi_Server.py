@@ -1,9 +1,15 @@
 import socketserver
 import threading
+import time
+import datetime
+import os
+import sys
 
 HOST = ''                # allocate IP address of Server automatically
 PORT = 9009				 # allocate Port num
 lock = threading.Lock()  # syncronized
+
+flag = 0
 
 def get_today():
     now = time.localtime()
@@ -22,46 +28,72 @@ def check_time_value():
     hour = time.hour
     minute = time.minute
     sec = time.second
-
     return year, month, day, hour, minute, sec
 
-class UserManager:  # manage users & sending the messages
-    # 1. Register User who enter the chatting room
-    # 2. Terminate client when users off the room
-    # 3. manage user's in and out of the room
-    # 4. send the message to all clients who are connected with server
+def leave_log(folderpath, msg):
+    global flag
+
+    year, month, day, hour, minute, sec = check_time_value()
+
+
+    filename = str(year) + str("%02d" % month) + str("%02d" % day)
+
+    # leave the log initial data
+    if flag == 0:
+        f = open("./" + folderpath + "/log_%s.txt" % filename, 'w', encoding='utf - 8')
+        data = " ID  ,  code  ,  sequence  ,  signal  ,  Def values ... Def values  \n"
+        f.write(data)
+        flag = 1
+
+    # leave the log continuously
+    f = open("./" + folderpath + "/log_%s.txt" % filename, 'a')
+    f.write(msg + '\n')
+
+    # check_year = datetime.datetime.now().year
+    # check_month = datetime.datetime.now().month
+    # check_day = datetime.datetime.now().day
+    # pre_day = check_day
+
+    f.close()
+
+class UserManager:  # manage PLCs & sending the messages
+    # 1. Register PLC client which was accessed with Pi server
+    # 2. Terminate PLC client when PLC was disconnected from the Pi server
+    # 3. manage PLC connection or disconnection
+    # 4. send the message to all PLC clients which are connected with Pi server
 
     def __init__(self):
-        self.users = {}  # Dictionary for add user's information {user name: (socket, address), ... }
+        self.users = {}  # Dictionary for adding PLC's information {PLC name: (socket, address), ... }
 
     def addUser(self, PLCname, conn, addr):  # Add the user ID at 'self.users'
 
-        if PLCname in self.users:  # if it already added
+        # if it already have same ID
+        if PLCname in self.users:
             conn.send('it already existed ID.\n'.encode())
             return None
 
         # Register new PLC
-        lock.acquire()  # lock for blocking syncronizing of thread
-        self.users[PLCname] = (conn, addr)
+        lock.acquire()                          # lock for blocking syncronizing of thread
+        self.users[PLCname] = (conn, addr)      # add PLC ID
         print("Create PLC ID Folder:", PLCname)
-        make_folder(PLCname)        # create the folder name of PLC ID
-        lock.release()              # release the lock after update
+        make_folder(PLCname)                    # create the folder name of PLC ID
+        lock.release()                          # release the lock after update
 
-        self.sendMessageToAll('[%s] entered the room' % PLCname)
-        print('+++ total chatters [%d]' % len(self.users))
+        self.sendMessageToAll('[%s] PLC is/are connected' % PLCname)
+        print('+++ total connected PLC number : [%d]' % len(self.users))
 
         return PLCname
 
-    def removeUser(self, PLCname):  # remove the user from the PLCname list
+    def removeUser(self, PLCname):  # remove the PLC ID from the list
         if PLCname not in self.users:
             return
 
         lock.acquire()
-        del self.users[PLCname]
+        del self.users[PLCname]     # remove PLC ID
         lock.release()
 
-        self.sendMessageToAll('[%s] left the room' % PLCname)
-        print('--- total chatters [%d]' % len(self.users))
+        self.sendMessageToAll('[%s] PLC is disconnected' % PLCname)
+        print('--- total connected PLC number : [%d]' % len(self.users))
 
     def messageHandler(self, PLCname, msg):  # process 'msg' which I sent
         if msg[0] != '/':  # if it is not '/' at first character
@@ -81,6 +113,7 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
     userman = UserManager()
 
     def handle(self):  # print the client address when they are access
+        PLCname = ''
         print('[%s] connected' % self.client_address[0])
 
         try:
@@ -88,6 +121,9 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
             msg = self.request.recv(1024)
             while msg:
                 print(msg.decode())
+
+                leave_log(PLCname, msg.decode())        # leave the log in the PLC ID name folder
+
                 if self.userman.messageHandler(PLCname, msg.decode()) == -1:
                     self.request.close()
                     break
@@ -96,7 +132,7 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
         except Exception as e:
             print(e)
 
-        print('[%s] Terminate the access' % self.client_address[0])
+        print('[%s] Disconnect the access' % self.client_address[0])
         self.userman.removeUser(PLCname)
 
     def registerUsername(self):
