@@ -32,7 +32,7 @@ def runChat():
         while True:
             cnt += 1
             # msg = input()
-            msg = PLCname + ' protocol ' + str(cnt) + '\n'     # send the protocol information to server continuously
+            msg = PLCname + ' protocol ' + str(cnt)     # send the protocol information to server continuously
             time.sleep(1)
             if msg == '/quit':
                 sock.send(msg.encode())
