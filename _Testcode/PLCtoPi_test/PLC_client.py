@@ -33,7 +33,7 @@ def runChat():
             sequence += 1
             # msg = input()
             msg = PLCname + ', Code ,' + str(sequence) + ', signal , def1 , def2 , def3 '     # send the protocol information to server continuously
-            time.sleep(1)
+            time.sleep(3)
             if msg == '/quit':
                 sock.send(msg.encode())
                 break

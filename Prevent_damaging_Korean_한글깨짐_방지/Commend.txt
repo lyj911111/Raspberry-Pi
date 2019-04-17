@@ -1,5 +1,5 @@
 reference: https://withcoding.com/100
 
 1. sudo apt-get -y install ibus-hangul
-2. sudo apt-get -y install fonts-unfonts-core
+2. sudo apt-get install fonts-unfonts-core
 3. sudo reboot
