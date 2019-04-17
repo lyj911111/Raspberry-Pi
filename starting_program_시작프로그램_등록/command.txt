@@ -1,0 +1,19 @@
+1. 커맨드
+	$ sudo nano /etc/rc.local
+
+2. 맨아래 exit 0 위에 시작프로그램 등록.
+	ex) 파이썬 프로그램등록 (계정이름: Pi)
+	&& 앞: 10초동안 대기 (OS켜질때까지),
+	&   앞: 백그라운드 프로세스로 실행.
+	
+...
+fi
+
+(sleep 10 && /usr/bin/python3 /home/pi/execute/Pi_Server.py)&
+
+exit 0
+
+
+3. 재부팅
+	$ sudo reboot
+
