@@ -2,7 +2,7 @@ import socket
 from threading import Thread
 import time
 
-HOST = '192.168.110.187'	# IP address that I want to access
+HOST = '192.168.110.136'	# IP address that I want to access
 PORT = 9009					# Port num
 
 def rcvMsg(sock):
