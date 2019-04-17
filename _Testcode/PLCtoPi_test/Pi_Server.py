@@ -10,6 +10,7 @@ PORT = 9009				 # allocate Port num
 lock = threading.Lock()  # syncronized
 
 flag = 0
+store_location = '/home/pi/execute/'
 
 def get_today():
     now = time.localtime()
@@ -31,7 +32,8 @@ def check_time_value():
     return year, month, day, hour, minute, sec
 
 def leave_log(folderpath, msg):
-    global flag
+    global flag, store_location
+    folderpath = store_location + folderpath
 
     year, month, day, hour, minute, sec = check_time_value()
 
@@ -40,13 +42,13 @@ def leave_log(folderpath, msg):
 
     # leave the log initial data
     if flag == 0:
-        f = open("./" + folderpath + "/log_%s.txt" % filename, 'w', encoding='utf - 8')
+        f = open(folderpath + "/log_%s.txt" % filename, 'w', encoding='utf - 8')
         data = " ID  ,  code  ,  sequence  ,  signal  ,  Def values ... Def values  \n"
         f.write(data)
         flag = 1
 
     # leave the log continuously
-    f = open("./" + folderpath + "/log_%s.txt" % filename, 'a')
+    f = open(folderpath + "/log_%s.txt" % filename, 'a')
     f.write(msg + '\n')
 
     # check_year = datetime.datetime.now().year

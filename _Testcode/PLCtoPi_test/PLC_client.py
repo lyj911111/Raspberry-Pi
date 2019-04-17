@@ -2,7 +2,7 @@ import socket
 from threading import Thread
 import time
 
-HOST = '192.168.110.136'	# IP address that I want to access
+HOST = '192.168.110.187'	# IP address that I want to access
 PORT = 9009					# Port num
 
 def rcvMsg(sock):
@@ -33,7 +33,7 @@ def runChat():
             sequence += 1
             # msg = input()
             msg = PLCname + ', Code ,' + str(sequence) + ', signal , def1 , def2 , def3 '     # send the protocol information to server continuously
-            time.sleep(3)
+            time.sleep(1)
             if msg == '/quit':
                 sock.send(msg.encode())
                 break
