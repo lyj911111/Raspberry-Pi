@@ -10,7 +10,7 @@ PORT = 9009				 # allocate Port num
 lock = threading.Lock()  # syncronized
 
 flag = 0
-store_location = '/home/pi/execute/'
+store_location = '/home/pi/PLClog/'
 
 def get_today():
     now = time.localtime()
