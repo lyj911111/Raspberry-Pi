@@ -37,7 +37,6 @@ def runChat():
             if msg == '/quit':
                 sock.send(msg.encode())
                 break
-
             sock.send(msg.encode())
 
 

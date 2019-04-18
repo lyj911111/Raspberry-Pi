@@ -78,7 +78,7 @@ class UserManager:  # manage PLCs & sending the messages
         lock.acquire()                          # lock for blocking syncronizing of thread
         self.users[PLCname] = (conn, addr)      # add PLC ID
         print("Create PLC ID Folder:", PLCname)
-        make_folder(PLCname)                    # create the folder name of PLC ID
+        make_folder(store_location + PLCname)   # create the folder name of PLC ID
         lock.release()                          # release the lock after update
 
         self.sendMessageToAll('[%s] PLC is/are connected' % PLCname)
