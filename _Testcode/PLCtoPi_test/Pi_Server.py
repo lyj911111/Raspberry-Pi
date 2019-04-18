@@ -71,7 +71,9 @@ class UserManager:  # manage PLCs & sending the messages
 
         # if it already have same ID
         if PLCname in self.users:
-            conn.send('it already existed ID.\n'.encode())
+            conn.send('it already existed ID.\n Please use other ID. \n'.encode())
+            server.shutdown()
+            server.server_close()
             return None
 
         # Register new PLC
