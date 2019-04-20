@@ -83,7 +83,7 @@ class UserManager:  # manage PLCs & sending the messages
         self.users[PLCname] = (conn, addr)      # add PLC ID
         print("Create PLC ID Folder:", PLCname)
         make_folder(store_location + 'backup/' + PLCname)   # create PLC name folder at backup folder
-        make_folder(store_location + 'sending/' + PLCname)  # create PLC name folder at sending folder
+        make_folder(store_location + 'sending/' + PLCname + '_copy')  # create PLC name folder at sending folder
         lock.release()                                      # release the lock after update
 
         self.sendMessageToAll('[%s] PLC is/are connected' % PLCname)
