@@ -4,6 +4,7 @@ import time
 import datetime
 import os
 import sys
+import shutil
 
 HOST = ''                # allocate IP address of Server automatically
 PORT = 9009				 # allocate Port num
@@ -31,12 +32,12 @@ def check_time_value():
     sec = time.second
     return year, month, day, hour, minute, sec
 
+
 def leave_log(folderpath, msg):
     global flag, store_location
     folderpath = store_location + folderpath
 
     year, month, day, hour, minute, sec = check_time_value()
-
 
     filename = str(year) + str("%02d" % month) + str("%02d" % day)
 
@@ -49,14 +50,15 @@ def leave_log(folderpath, msg):
 
     # leave the log continuously
     f = open(folderpath + "/log_%s.txt" % filename, 'a')
-    f.write(msg + '\n')
-
-    # check_year = datetime.datetime.now().year
-    # check_month = datetime.datetime.now().month
-    # check_day = datetime.datetime.now().day
-    # pre_day = check_day
-
+    msg = filterEndline(msg)    # edit the message for end line
+    f.write(msg)
     f.close()
+
+def filterEndline(msg):
+
+    # Add New line behind ';'(semicolon) which mean end of the line ( ASCII:[0x3B] )
+    msg = msg.replace(chr(0x3B), chr(0x3B)+'\n')
+    return msg
 
 class UserManager:  # manage PLCs & sending the messages
     # 1. Register PLC client which was accessed with Pi server
@@ -80,8 +82,9 @@ class UserManager:  # manage PLCs & sending the messages
         lock.acquire()                          # lock for blocking syncronizing of thread
         self.users[PLCname] = (conn, addr)      # add PLC ID
         print("Create PLC ID Folder:", PLCname)
-        make_folder(store_location + PLCname)   # create the folder name of PLC ID
-        lock.release()                          # release the lock after update
+        make_folder(store_location + 'backup/' + PLCname)   # create PLC name folder at backup folder
+        make_folder(store_location + 'sending/' + PLCname)  # create PLC name folder at sending folder
+        lock.release()                                      # release the lock after update
 
         self.sendMessageToAll('[%s] PLC is/are connected' % PLCname)
         print('+++ total connected PLC number : [%d]' % len(self.users))
@@ -126,7 +129,8 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
             while msg:
                 print(msg.decode())
 
-                leave_log(PLCname, msg.decode())        # leave the log in the PLC ID name folder
+                leave_log('backup/' + PLCname, msg.decode())            # leave the log in backup folder
+                leave_log('sending/' + PLCname + '_copy', msg.decode())  # leave the log in sending folder (it will be edited for sending upper server)
 
                 if self.userman.messageHandler(PLCname, msg.decode()) == -1:
                     self.request.close()
