@@ -1,3 +1,5 @@
 sudo apt-get upgrade
+sudo apt-get update
 sudo apt-get install vim
-sudo apt-get install terminator
+sudo apt-get install terminator	# 멀티 터미널창
+sudo apt-get install scrot		# 라즈베리파이 화면 캡쳐 $ scrot
