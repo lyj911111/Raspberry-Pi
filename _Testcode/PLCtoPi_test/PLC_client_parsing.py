@@ -4,7 +4,7 @@ import time
 import argparse
 
 '''
-    Defined Protocol : ID,CODE1,CODE2,Sequence,Signal,Def value1,Def value2 ...
+    Defined Protocol : ID,CODE1,CODE2,Sequence,Signal,Def value1,Def value2 ..., 0x3B
     
     Test sample example code
     ->  ID       : PLC1, PLC2, PLC3 ...
@@ -12,11 +12,12 @@ import argparse
         CODE2    : CD01, CD02 ...
         Sequence : 190420_001, 190402_002, 190403_003 ...
         Signal   : RQT, ACK, FIN ...
-        Def1     : 0x02,0x11,0x22,0x03
+        Def1     : 0x02,0x11,0x22
+		END      : 0x3B
         
-    My test sample protocol : PLC1,ST01,CD01,190420_xxx,RQT,0x02,0x11,0x22,0x03
-    My test sample protocol : PLC2,ST01,CD01,190420_xxx,RQT,0x02,0x11,0x22,0x03
-    My test sample protocol : PLC3,ST01,CD01,190420_xxx,RQT,0x02,0x11,0x22,0x03
+    My test sample protocol : PLC1,ST01,CD01,190420_xxx,RQT,0x02,0x11,0x22,0x3B
+    My test sample protocol : PLC2,ST01,CD01,190420_xxx,RQT,0x02,0x11,0x22,0x3B
+    My test sample protocol : PLC3,ST01,CD01,190420_xxx,RQT,0x02,0x11,0x22,0x3B
     
 '''
 
@@ -48,7 +49,7 @@ Signal = 'RQT'
 def1 = chr(0x02)
 def2 = chr(0x11)
 def3 = chr(0x22)
-def4 = chr(0x03)
+def4 = chr(0x3B)
 
 
 def rcvMsg(sock):
