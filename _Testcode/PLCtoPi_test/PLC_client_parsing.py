@@ -49,7 +49,7 @@ Signal = 'RQT'
 def1 = chr(0x02)
 def2 = chr(0x11)
 def3 = chr(0x22)
-def4 = chr(0x3B)
+END = chr(0x3B)
 
 
 def rcvMsg(sock):
@@ -81,11 +81,11 @@ def runChat():
             # msg = input()
 
             # send the protocol information to server continuously
-            msg = PLCname + ',' + CODE1 + ',' + CODE2 + ',' + sqnce + ',' + Signal + ',' + def1 + ',' + def2 + ',' + def3 + ',' + def4
+            msg = PLCname + ',' + CODE1 + ',' + CODE2 + ',' + sqnce + ',' + Signal + ',' + def1 + ',' + def2 + ',' + def3 + ',' + END
             time.sleep(1)
-            if msg == '/quit':
-                sock.send(msg.encode())
-                break
+            # if msg == '/quit':
+            #     sock.send(msg.encode())
+            #     break
             sock.send(msg.encode())
 
 
