@@ -14,15 +14,18 @@ folderlist = os.listdir(acess_location)         # Save as lists at folder on pat
 def read_file(index):
     global acess_location, folderlist
 
-    filename = os.listdir(acess_location + folderlist[0])                 # Save the filename from list.
-    filetext = acess_location + folderlist[index] + '/' + filename[0]     # .txt file for using read the file
-    try:
-        f = open(filetext, 'r')                                           # Open as read mode
-        lines = f.readlines()                                             # export the lines list
-        f.close()
-        return lines, filetext
-    except: return None, None
+    if folderlist != 0:
+        for i in range(len(folderlist)):
 
+            filename = os.listdir(acess_location + folderlist[i])                 # Save the filename from list.
+            filetext = acess_location + folderlist[index] + '/' + filename[i]     # .txt file for using read the file
+            try:
+                f = open(filetext, 'r')                                           # Open as read mode
+                lines = f.readlines()                                             # export the lines list
+                f.close()
+                return lines, filetext
+            except: return None, None
+    else: return None, None
 
 
 
