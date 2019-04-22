@@ -16,11 +16,15 @@ def read_file(index):
 
     filename = os.listdir(acess_location + folderlist[0])                 # Save the filename from list.
     filetext = acess_location + folderlist[index] + '/' + filename[0]     # .txt file for using read the file
-    f = open(filetext, 'r')                                               # Open as read mode
-    lines = f.readlines()                                                 # export the lines list
-    f.close()
+    try:
+        f = open(filetext, 'r')                                           # Open as read mode
+        lines = f.readlines()                                             # export the lines list
+        f.close()
+        return lines, filetext
+    except: return None, None
 
-    return lines, filetext
+
+
 
 def rcvMsg(sock):
     while True:
