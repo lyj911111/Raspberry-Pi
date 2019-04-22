@@ -52,18 +52,19 @@ def runChat():
             if folderlist != 0:
                 for i in range(len(folderlist)):
                     lines, filetext = read_file(i)  # return lines[list], .txt file path
-                    for line in lines:
+                    if lines != None:
+                        for line in lines:
 
-                        # print("Read line :", line)
-                        msg = line
-                        sock.send(msg.encode())  # Send the message per reading
-                        # cv2.waitKey(100)
+                            # print("Read line :", line)
+                            msg = line
+                            sock.send(msg.encode())  # Send the message per reading
+                            # cv2.waitKey(100)
 
-                        print("file path : ", filetext)
-                        print("remove line : ", line)
-                        with open(filetext, 'w') as f:      # remove the line after reading
-                            if line.strip('\n') != line:
-                                f.write(line)
+                            print("file path : ", filetext)
+                            print("remove line : ", line)
+                            with open(filetext, 'w') as f:      # remove the line after reading
+                                if line.strip('\n') != line:
+                                    f.write(line)
 
             else:
                 print("empty the folders")
