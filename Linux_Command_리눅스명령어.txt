@@ -1,4 +1,4 @@
-- 프로세스관련
+﻿- 프로세스관련
 	[nohup 실행파일 &]
 	nohup python3 exec.py &  : &백그라운드로 실행, log가 바로 보이지 않음.
 	
@@ -19,4 +19,11 @@
 	
 - 권한설정 관련
 	sudo su : 루트권한 취득
+
+- 날짜, 시간 관련
+	date : 시간보기
+	cal   : 달력보기
+
+	[시간대 변경하기, 새 window으로 실행됨.]
+	sudo dpkg-reconfigure tzdata
 	
