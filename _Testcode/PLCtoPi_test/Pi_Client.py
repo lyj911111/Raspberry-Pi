@@ -18,12 +18,13 @@ def read_file(index):
     filename = os.listdir(acess_location + folderlist[0])                 # Save the filename from list.
     filetext = acess_location + folderlist[index] + '/' + filename[0]     # "path + .txt" file for using read the file
 
-    f = open(filetext, 'r')                                               # Open as read mode
-    lines = f.readlines()                                                 # export the lines list
-    f.close()
-
-    return lines, filetext
-
+    try:
+        f = open(filetext, 'r')                                               # Open as read mode
+        lines = f.readlines()                                                 # export the lines list
+        f.close()
+        return lines, filetext
+    except:
+        return None, None
 
 # If text file has only 1 line, Remove the '\n' the end of the line
 def lastlineProcess(msg):
@@ -56,6 +57,8 @@ def runChat():
 
         # Read file and Send the message and Remove the copied text file line.
         while True:
+            folderlist = os.listdir(acess_location) # Update the path if the folder created
+            print("Number of Folder: ", len(folderlist))
             if folderlist != 0:
 
                 for i in range(len(folderlist)):
