@@ -4,12 +4,6 @@
  This Server is just get the data from Client
  and leave the log
 
-최상위단 서버 테스트
-
- 라즈베라파이 client -> 상위 server
-
- 라즈베리에 기록된 모든 로그를 전송.
- 상위서버 폴더에 그 문서를 저장하는 테스트.
 '''
 
 import socketserver
@@ -25,8 +19,8 @@ PORT = 9009				 # allocate Port num
 lock = threading.Lock()  # syncronized
 
 flag = 0
-store_location = 'C:/Users/Lee Won Jae/Desktop/client/upper_server_store/'  # 윈도우상 서버 폴더파일 복사 테스트.
-# store_location = 'home/pi/PLClog/upper_server_store'  # 리눅스상 서버 폴더파일 복사 테스트
+#store_location = 'C:/Users/Lee Won Jae/Desktop/client/upper_server_store/'  # Window
+store_location = 'home/pi/PLClog/upper_server_store'  # Linux
 
 def get_today():
     now = time.localtime()
@@ -56,12 +50,12 @@ def check_time_value():
 #     # print("filelist = {}".format(filename))
 #     # print(" filename????", filename[0])
 #
-#     # 읽기 테스트 **
+#    
 #     # f = open(filename[0], 'r')
 #     #f = open('C:/Users/Lee Won Jae/Desktop/client/123_copy/log_20190419.txt', 'r')
 #     f = open(folderpath + '/' + filename[0], 'r')
 #     line = f.readline()
-#     print("내가읽은 라인:", line)
+#    
 #     f.close()
 
 def leave_log(msg):
@@ -89,7 +83,7 @@ def leave_log(msg):
 
 def filterEndline(msg):
 
-    # 문자열 내에서 세미콜론 ; [0x3B]을 만나면 뒤에 개행 추가시키기
+   
     msg = msg.replace(chr(0x3B), chr(0x3B)+'\n')
     return msg
 
@@ -162,7 +156,7 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
 
                 leave_log( msg.decode())        # leave the log in the PLC ID name folder   **
                 #leave_log('sending/' + PLCname + '_copy', msg.decode()) # **
-                #read_file(PLCname + '_copy')               # ** 파일 읽어서 출력하기
+                #read_file(PLCname + '_copy')              
 
                 if self.userman.messageHandler(PLCname, msg.decode()) == -1:
                     self.request.close()
