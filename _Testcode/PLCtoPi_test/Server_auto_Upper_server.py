@@ -20,7 +20,7 @@ lock = threading.Lock()  # syncronized
 
 flag = 0
 #store_location = 'C:/Users/Lee Won Jae/Desktop/client/upper_server_store/'  # Window
-store_location = 'home/pi/PLClog/upper_server_store'  # Linux
+store_location = '/home/pi/PLClog/upper_server_store'  # Linux
 
 def get_today():
     now = time.localtime()
