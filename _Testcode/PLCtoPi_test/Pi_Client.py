@@ -65,13 +65,14 @@ def runChat():
                         for line in lines:
 
                             # if the text file has only 1 line, Remove it, cuz it already sent the message to Server.
-                            if len(lines) == 1:
-                                line = lastlineProcess(line) # Remove only one line
+                            if len(lines) > 1:
+                                sock.send(line.encode())  # Send the message per reading
+                            else:
+                                sock.send(line.encode())        # Send the message per reading when it lower than 1 line
+                                line = lastlineProcess(line)    # Remove only one line
                                 f = open(filetext, 'w')
                                 f.write(line)
                                 f.close()
-                            else:
-                                sock.send(line.encode())  # Send the message per reading
                             # cv2.waitKey(100)
 
                             print("file path : ", filetext)
