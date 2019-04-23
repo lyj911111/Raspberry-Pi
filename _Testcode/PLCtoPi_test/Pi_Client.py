@@ -71,7 +71,7 @@ def runChat():
                                 f.write(line)
                                 f.close()
                             else:
-                                sock.send(msg.encode())  # Send the message per reading
+                                sock.send(line.encode())  # Send the message per reading
                             # cv2.waitKey(100)
 
                             print("file path : ", filetext)
