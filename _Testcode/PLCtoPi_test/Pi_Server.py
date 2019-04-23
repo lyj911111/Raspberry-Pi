@@ -13,14 +13,17 @@ lock = threading.Lock()  # syncronized
 flag = 0
 store_location = '/home/pi/PLClog/'
 
+
 def get_today():
     now = time.localtime()
     local_time = "%04d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday)
     return local_time
 
+
 def make_folder(folder_name):
     if not os.path.isdir(folder_name):
         os.mkdir(folder_name)
+
 
 def check_time_value():
     time = datetime.datetime.now()
@@ -54,11 +57,13 @@ def leave_log(folderpath, msg):
     f.write(msg)
     f.close()
 
+
 def filterEndline(msg):
 
-    # Add New line behind ';'(semicolon) which mean end of the line ( ASCII:[0x3B] )
+    # Add New line behind ';'(semicolon) which means end of the line ( ASCII:[0x3B] )
     msg = msg.replace(chr(0x3B), chr(0x3B)+'\n')
     return msg
+
 
 class UserManager:  # manage PLCs & sending the messages
     # 1. Register PLC client which was accessed with Pi server
@@ -82,9 +87,9 @@ class UserManager:  # manage PLCs & sending the messages
         lock.acquire()                          # lock for blocking syncronizing of thread
         self.users[PLCname] = (conn, addr)      # add PLC ID
         print("Create PLC ID Folder:", PLCname)
-        make_folder(store_location + 'backup/' + PLCname)   # create PLC name folder at backup folder
-        make_folder(store_location + 'sending/' + PLCname + '_copy')  # create PLC name folder at sending folder
-        lock.release()                                      # release the lock after update
+        make_folder(store_location + 'backup/' + PLCname)               # create PLC name folder at backup folder
+        make_folder(store_location + 'sending/' + PLCname + '_copy')    # create PLC name folder at sending folder
+        lock.release()                                                  # release the lock after update
 
         self.sendMessageToAll('[%s] PLC is/are connected' % PLCname)
         print('+++ total connected PLC number : [%d]' % len(self.users))
