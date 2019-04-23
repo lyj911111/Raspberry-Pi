@@ -3,6 +3,13 @@
 
  This Server is just get the data from Client
  and leave the log
+
+최상위단 서버 테스트
+
+ 라즈베라파이 client -> 상위 server
+
+ 라즈베리에 기록된 모든 로그를 전송.
+ 상위서버 폴더에 그 문서를 저장하는 테스트.
 '''
 
 import socketserver
@@ -18,7 +25,7 @@ PORT = 9009				 # allocate Port num
 lock = threading.Lock()  # syncronized
 
 flag = 0
-store_location = 'C:/Users/Lee Won Jae/Desktop/client/upper_server_store'  # 윈도우상 서버 폴더파일 복사 테스트.
+store_location = 'C:/Users/Lee Won Jae/Desktop/client/upper_server_store/'  # 윈도우상 서버 폴더파일 복사 테스트.
 # store_location = 'home/pi/PLClog/upper_server_store'  # 리눅스상 서버 폴더파일 복사 테스트
 
 def get_today():
@@ -72,20 +79,13 @@ def leave_log(msg):
         f.write(data)
         flag = 1
 
-###############################################
     # leave the log continuously
     f = open(folderpath + "/log_%s.txt" % filename, 'a')
-    # Edit the message
-    msg = filterEndline(msg)
+    msg = filterEndline(msg)    # Edit the message
 
     f.write(msg)
     f.close()
-################################################
 
-    # check_year = datetime.datetime.now().year
-    # check_month = datetime.datetime.now().month
-    # check_day = datetime.datetime.now().day
-    # pre_day = check_day
 
 def filterEndline(msg):
 
@@ -115,9 +115,6 @@ class UserManager:  # manage PLCs & sending the messages
         # Register new PLC
         lock.acquire()                          # lock for blocking syncronizing of thread
         self.users[PLCname] = (conn, addr)      # add PLC ID
-        # print("Create PLC ID Folder:", PLCname)
-        # make_folder(store_location + 'backup/' + PLCname)   # create the folder name of PLC ID  **
-        # make_folder(store_location + 'sending/' + PLCname + '_copy')       # 사본이 들어갈 폴더생성 **
         lock.release()                          # release the lock after update
 
         self.sendMessageToAll('[%s] PLC is/are connected' % PLCname)
