@@ -10,24 +10,26 @@ PORT = 9009					# Port num
 acess_location = '/home/pi/PLClog/sending/'     # Path for accessing the folders.
 folderlist = os.listdir(acess_location)         # Save as lists at folder on path
 
+
 # Return the lines[list] in text file through indexing Folder.
 def read_file(index):
     global acess_location, folderlist
 
-    filename = os.listdir(acess_location + folderlist[0])  # Save the filename from list.
-    if filename != 0:
-        for i in range(len(filename)):
+    filename = os.listdir(acess_location + folderlist[0])                 # Save the filename from list.
+    filetext = acess_location + folderlist[index] + '/' + filename[0]     # "path + .txt" file for using read the file
 
-            filetext = acess_location + folderlist[index] + '/' + filename[i]  # .txt file for using read the file
-            try:
-                f = open(filetext, 'r')     # Open as read mode
-                lines = f.readlines()       # export the lines list
-                f.close()
-                return lines, filetext
-            except:
-                return None, None
-    else:
-        return None, None
+    f = open(filetext, 'r')                                               # Open as read mode
+    lines = f.readlines()                                                 # export the lines list
+    f.close()
+
+    return lines, filetext
+
+
+# If text file has only 1 line, Remove the '\n' the end of the line
+def lastlineProcess(msg):
+
+    msg = msg.strip()
+    return msg
 
 
 def rcvMsg(sock):
@@ -39,6 +41,7 @@ def rcvMsg(sock):
             print(data.decode())
         except:
             pass
+
 
 def runChat():
     global acess_location, folderlist
@@ -54,14 +57,21 @@ def runChat():
         # Read file and Send the message and Remove the copied text file line.
         while True:
             if folderlist != 0:
+
                 for i in range(len(folderlist)):
                     lines, filetext = read_file(i)  # return lines[list], .txt file path
+
                     if lines != None:
                         for line in lines:
 
-                            # print("Read line :", line)
-                            msg = line
-                            sock.send(msg.encode())  # Send the message per reading
+                            # if the text file has only 1 line, Remove it, cuz it already sent the message to Server.
+                            if len(lines) == 1:
+                                line = lastlineProcess(line) # Remove only one line
+                                f = open(filetext, 'w')
+                                f.write(line)
+                                f.close()
+                            else:
+                                sock.send(msg.encode())  # Send the message per reading
                             # cv2.waitKey(100)
 
                             print("file path : ", filetext)
