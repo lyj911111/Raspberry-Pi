@@ -1,0 +1,24 @@
+숨긴 Wifi를 Dynamic IP address 으로 사용방법.
+
+1. 터미널에서 명령어 입력.
+	$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+2.
+모두 지우고 다음과 같이 작성
+(비밀번호가 있는 경우)
+=>
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=GB
+
+network={
+ssid="ace"		// 숨긴 Wifi 이름
+scan_ssid=1		// 숨긴 Wifi 찾기 활성화
+psk="Vace@2016"		// 숨긴 Wifi 비밀번호
+proto=RSN
+key_mgmt=WPA-PSK
+pairwise=TKIP
+group=TKIP
+#disabled=1		// Wifi를 사용할지 말지 여부 1 일때 사용안함.
+}
