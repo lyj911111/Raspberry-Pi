@@ -97,4 +97,24 @@ $ free 										// 이후 메모리 확인
 // 컴파일 실행 (오래걸림 약 5시간)
 $ make
 
+// 컴파일 결과물 설치
+$sudo make install
+
+// Opencv 라이브러리 찾을 수 있도록 명령
+$sudo ldconfig     //  l(알파벳) 임.
+
+// swap 메모리를 다시 100으로
+$sudo nano /etc/dphys-swapfile
+...
+CONF_SWAPSIZE=100
+#CONF_SWAPSIZE=2048
+...
+
+// swap 재시작
+$sudo /etc/init.d/dphys-swapfile restart
+$free 	// 확인
+
+
+
+
 
