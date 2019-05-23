@@ -3,3 +3,4 @@ sudo apt-get update
 sudo apt-get install vim
 sudo apt-get install terminator	# 멀티 터미널창
 sudo apt-get install scrot		# 라즈베리파이 화면 캡쳐 $ scrot
+sudo apt-get install xrdp		# 노트북 라즈베리파이 그래픽 원격조종 어플 참고: http://blog.naver.com/PostView.nhn?blogId=icbanq&logNo=220915373217&parentCategoryNo=&categoryNo=78&viewDate=&isShowPopularPosts=false&from=postView
