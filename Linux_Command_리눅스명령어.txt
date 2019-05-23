@@ -18,7 +18,13 @@
 	find / -name PLC -type d  : 전체 하드에서 PLC라는 폴더명이 들어간 것을 찾음.
 	
 - 권한설정 관련
-	sudo su : 루트권한 취득
+	$sudo su : 루트권한 취득
+	$sudo -s : 루트권한 취득
+
+	#su - username
+	ex) username이 pi일때
+	#su - pi  : 다시 계정권한으로 돌아옴.
+	
 
 - 날짜, 시간 관련
 	date : 시간보기
