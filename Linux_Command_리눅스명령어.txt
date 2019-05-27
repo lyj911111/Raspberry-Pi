@@ -1,35 +1,40 @@
 ﻿- 프로세스관련
 	[nohup 실행파일 &]
-	nohup python3 exec.py &  : &백그라운드로 실행, log가 바로 보이지 않음.
+	$ nohup python3 exec.py &  : &백그라운드로 실행, log가 바로 보이지 않음.
 	
-	ps -ef : 백그라운드 포함 모든 프로세스 출력
+	$ ps -ef : 백그라운드 포함 모든 프로세스 출력
 	
 	[ps -ef | grep "keyword"] : 내가 원하는 키워드로 찾기
-	ps -ef | grep python      : python 이 들어간 키워드 프로세스만 출력
+	$ ps -ef | grep python      : python 이 들어간 키워드 프로세스만 출력
 	
 	[kill -9 프로세스번호] : 강제종료
-	kill -9 425 		: 425번 프로세스 강제종료
+	$ kill -9 425 		: 425번 프로세스 강제종료
 	
 - 파일,폴더 찾기 관련
 	[find / -name 명칭] : 전체 하드디스크에서 '명칭'과 관련된 모든 파일 찾기.
-	find / -name PLC   : 전체 하드에서 PLC라는 단어가 들어가는걸 모두 찾음.
+	$ find / -name PLC   : 전체 하드에서 PLC라는 단어가 들어가는걸 모두 찾음.
 	
 	[find / -name 명칭 -type d] : 전체 하드디스크에서 '명칭'이 들어간 모든 폴더를 찾음.
-	find / -name PLC -type d  : 전체 하드에서 PLC라는 폴더명이 들어간 것을 찾음.
+	$ find / -name PLC -type d  : 전체 하드에서 PLC라는 폴더명이 들어간 것을 찾음.
 	
 - 권한설정 관련
-	$sudo su : 루트권한 취득
-	$sudo -s : 루트권한 취득
+	$ sudo su : 루트권한 취득
+	$ sudo -s : 루트권한 취득
 
-	#su - username
+	# su - username
 	ex) username이 pi일때
-	#su - pi  : 다시 계정권한으로 돌아옴.
+	# su - pi  : 다시 계정권한으로 돌아옴.
 	
 
 - 날짜, 시간 관련
-	date : 시간보기
-	cal   : 달력보기
+	$ date : 시간보기
+	$ cal   : 달력보기
 
 	[시간대 변경하기, 새 window으로 실행됨.]
-	sudo dpkg-reconfigure tzdata
+	$ sudo dpkg-reconfigure tzdata
+
+- 네트워크 관련
+	[ ifconfig [NIC장치명][IP주소] netmask [서브넷주소] broadcast[브로드캐스트주소] up ]
+	$ sudo ifconfig eth0 169.254.138.111 netmask 255.255.255.0 up  : 유선이더넷 169.254.138.111으로 변경, netmask변경, up으로 활성화
+
 	
