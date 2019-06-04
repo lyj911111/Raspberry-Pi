@@ -1,4 +1,7 @@
-﻿- 프로세스관련
+﻿- 버전확인
+	$ uname -a 		: 리눅스 OS버전확인, 
+	$ cat /etc/proc/version
+- 프로세스관련
 	[nohup 실행파일 &]
 	$ nohup python3 exec.py &  : &백그라운드로 실행, log가 바로 보이지 않음.
 	
