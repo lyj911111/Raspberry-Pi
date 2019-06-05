@@ -1,0 +1,6 @@
+참고 링크:
+
+555타이머를 이용.
+
+https://arsviator.blogspot.com/2016/07/external-watchdog-timer-for-raspberry-pi.html
+http://blog.naver.com/PostView.nhn?blogId=roboholic84&logNo=10182990082&parentCategoryNo=1&categoryNo=&viewDate=&isShowPopularPosts=true&from=search
