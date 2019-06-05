@@ -19,15 +19,17 @@
 	     #change
 
 	     # Uncomment to enable test. Setting... blabla 아래 다음 Command추가.
-	     watchdog-timeout = 14
+	     max-load-1          =  24		<- 주석을 제거함.
+	     watchdog-timeout = 14		<- 없으므로 내가 작성. 이숫자가 작아질수록 렉걸린후 기다리는 시간이 짧아짐.
 
 	# 다음 Command는 주석을 제거하여 활성화.
-	5.2.  watchdog-device = /dev/watchdog
-	      realtime = yes
-	      priority = 1
+	5.2.  
+	      watchdog-device = /dev/watchdog
+	      realtime            = yes
+	      priority             = 1
 
 <watchdog을 활성화>
-6. sudo /etc/init.d/watchdog restart
+6. sudo /etc/init.d/watchdog restart		<- 만일 cancel된다면, watchdog-timeout을 14이내 숫자중 변경
 
 =====================================================
 
