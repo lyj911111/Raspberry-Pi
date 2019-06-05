@@ -10,7 +10,10 @@
 	[ps -ef | grep "keyword"] : 내가 원하는 키워드로 찾기
 	$ ps -ef | grep python      : python 이 들어간 키워드 프로세스만 출력
 	
-	[kill -9 프로세스번호] : 강제종료
+	[pidof python3 test.py]	: $ python3 test.py 라는 명령으로 실행된 PID번호를 리턴함.
+	$ pidof 실행한 명령어
+
+	[kill -9 프로세스번호옵션] : 강제종료
 	$ kill -9 425 		: 425번 프로세스 강제종료
 	
 - 파일,폴더 찾기 관련
@@ -27,7 +30,9 @@
 	# su - username
 	ex) username이 pi일때
 	# su - pi  : 다시 계정권한으로 돌아옴.
-	
+
+- 파일 유형 변경
+	$ chmod +x 파일이름     : 파일을 x(실행)가능하도록 만듦.	
 
 - 날짜, 시간 관련
 	$ date : 시간보기
